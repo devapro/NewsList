@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pro.devapp.newslist.R
 
 
-class NewsViewHolder (itemView: View)  : RecyclerView.ViewHolder(itemView) {
+open class NewsViewHolder (itemView: View)  : RecyclerView.ViewHolder(itemView) {
     companion object{
         val LAYOUT_ID = R.layout.view_item_news
     }

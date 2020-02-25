@@ -47,9 +47,32 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:maxLines="5"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/error"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="WordPress iOS and Android version 14.3 is available for testing. Sign up here to join the beta program on iOS or follow this link on your Android device, tap on Become a beta tester. Highlights for the last two weeks: Block Editor: New image block size option…"/>
+        tools:text="WordPress iOS and Android version 14.3 is available for testing. Sign up here to join the beta program on iOS or follow this link on your Android device, tap on Become a beta tester. Highlights for the last two weeks: Block Editor: New image block size option…" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/tryAgain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/tryAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/try_again_btn"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

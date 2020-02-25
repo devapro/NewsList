@@ -9,7 +9,8 @@ import pro.devapp.newslist.logic.livedata.NewsBoundaryCallback
 import pro.devapp.newslist.logic.livedata.NewsDataSourceFactory
 import pro.devapp.newslist.storage.database.DataRepository
 
-class MainListPresenter(dataRepository: DataRepository, dataController: DataController) {
+class MainListPresenter(dataRepository: DataRepository, private val dataController: DataController) {
+
     private val config = PagedList.Config.Builder()
         .setEnablePlaceholders(false)
         .setInitialLoadSizeHint(20)
@@ -24,4 +25,12 @@ class MainListPresenter(dataRepository: DataRepository, dataController: DataCont
         .setBoundaryCallback(NewsBoundaryCallback(dataController))
         .setInitialLoadKey(null)
         .build()
+
+    fun getErrorMessage(): LiveData<String>{
+        return dataController.errorMessage
+    }
+
+    fun tryAgain(){
+        dataController.loadSinceData(0)
+    }
 }

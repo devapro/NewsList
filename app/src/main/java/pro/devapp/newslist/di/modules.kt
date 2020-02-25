@@ -23,7 +23,7 @@ fun createOkHttpClient(): OkHttpClient {
         .build()
 }
 
-fun createDataBase(context: Context): AppDataBase{
+fun createDataBase(context: Context): AppDataBase {
     return Room.databaseBuilder(
         context,
         AppDataBase::class.java, DATA_BASE_NAME
@@ -39,7 +39,6 @@ val appModule = module {
     single { createOkHttpClient() }
     single { createDataBase(get()) }
 
-    // Simple Presenter Factory
     factory { MainListPresenter(get(), get()) }
     factory { ViewNewsPresenter(get()) }
 }

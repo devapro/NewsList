@@ -1,6 +1,7 @@
 package pro.devapp.newslist.logic
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -14,11 +15,14 @@ import java.lang.Exception
 
 class DataController(private val api: Api, private val dataRepository: DataRepository) {
 
+    private val TAG = DataController::class.java.simpleName
+
     private val dbEntityMapper = ApiToDbEntityMapper()
+    val errorMessage = MutableLiveData<String>()
 
     fun loadSinceData(time: Long){
         GlobalScope.launch {
-            val newsTotalCount = dataRepository.getNewsTotalCount() + 1
+            val newsTotalCount = dataRepository.getNewsTotalCount() + 19
             val page = (newsTotalCount/20) + 1
             loadPage(page)
         }
@@ -31,11 +35,11 @@ class DataController(private val api: Api, private val dataRepository: DataRepos
     }
 
     private suspend fun loadPage(page: Int){
-        Log.d("DataController", "page $page")
+        Log.d(TAG, "page $page")
         withContext(Dispatchers.IO){
             try {
                 val items = api.loadNextPage(page)
-                Log.d("DataController", items.size.toString())
+                Log.d(TAG, items.size.toString())
                 for (item in items){
                     val news = dataRepository.findNewsByUrl(item.url)
                     if (news == null){
@@ -47,7 +51,8 @@ class DataController(private val api: Api, private val dataRepository: DataRepos
                 }
             }
             catch (e: Exception){
-                Log.d("DataController", e.message)
+                errorMessage.postValue(e.message)
+                Log.d(TAG, e.message)
                 e.printStackTrace()
             }
         }

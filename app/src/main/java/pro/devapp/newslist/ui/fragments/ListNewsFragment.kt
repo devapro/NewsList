@@ -8,8 +8,10 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_news_list.*
 import org.koin.android.ext.android.inject
 import pro.devapp.newslist.R
+import pro.devapp.newslist.logic.entity.EntityNews
 import pro.devapp.newslist.logic.presenters.MainListPresenter
 import pro.devapp.newslist.ui.MainActivity
+import pro.devapp.newslist.ui.customviews.NewsList
 import pro.devapp.newslist.util.OnItemClickListener
 import pro.devapp.newslist.util.addOnItemClickListener
 
@@ -33,14 +35,21 @@ class ListNewsFragment : NavigationFragment() {
             newsList.submitList(it)
         })
 
-        newsList.addOnItemClickListener(object: OnItemClickListener {
-            override fun onItemClicked(position: Int, view: View) {
-                val news = newsList.getItemByPosition(position)
-                news?.let {
+        mainListPresenter.getErrorMessage().observe(viewLifecycleOwner, Observer {
+            newsList.setError(it)
+        })
+
+        newsList.listener = object : NewsList.ActionListener{
+            override fun onItemClick(item: EntityNews?) {
+                item?.let {
                     (activity as MainActivity).addFragment(ViewNewsFragment.newInstance(it.id))
                 }
             }
-        })
+
+            override fun onTryAgainClick() {
+                mainListPresenter.tryAgain()
+            }
+        }
     }
 
     companion object {

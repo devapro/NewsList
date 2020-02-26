@@ -5,7 +5,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.view_toolbar.*
-import pro.devapp.newslist.ui.MainActivity
 
 open class NavigationFragment : Fragment(){
 
@@ -26,10 +25,10 @@ open class NavigationFragment : Fragment(){
     }
 
     protected fun displayHome(){
-        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     protected fun setTitle(title: String){
-        (activity as MainActivity).supportActionBar?.title = title
+        (activity as AppCompatActivity).supportActionBar?.title = title
     }
 }

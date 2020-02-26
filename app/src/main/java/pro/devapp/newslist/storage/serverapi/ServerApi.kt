@@ -13,9 +13,7 @@ import pro.devapp.newslist.application.SERVER_URL
 import pro.devapp.newslist.storage.serverapi.entity.EntityApiNews
 import java.lang.Exception
 
-class ServerApi(private val client: OkHttpClient) : Api {
-
-    private val gson = Gson()
+class ServerApi(private val client: OkHttpClient, private val gson: Gson) : Api {
 
     @Throws(Exception::class)
     override suspend fun loadNextPage(page: Int): List<EntityApiNews> {

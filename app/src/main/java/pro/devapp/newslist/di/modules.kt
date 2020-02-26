@@ -1,13 +1,18 @@
 package pro.devapp.newslist.di
 
 import android.content.Context
+import androidx.fragment.app.FragmentManager
 import androidx.room.Room
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import pro.devapp.newslist.application.DATA_BASE_NAME
 import pro.devapp.newslist.application.TIMEOUT
 import pro.devapp.newslist.logic.DataController
-import pro.devapp.newslist.logic.presenters.MainListPresenter
+import pro.devapp.newslist.logic.presenters.ListPresenter
+import pro.devapp.newslist.logic.presenters.MainPresenter
 import pro.devapp.newslist.logic.presenters.ViewNewsPresenter
 import pro.devapp.newslist.storage.database.AppDataBase
 import pro.devapp.newslist.storage.database.DataRepository
@@ -31,14 +36,19 @@ fun createDataBase(context: Context): AppDataBase {
         .build()
 }
 
+fun createGson(): Gson {
+    return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create()
+}
+
 val appModule = module {
 
-    single<Api> { ServerApi(get()) }
+    single<Api> { ServerApi(get(), createGson()) }
     single<DataRepository> { RoomDataRepository(get()) }
     single { DataController(get(), get()) }
     single { createOkHttpClient() }
     single { createDataBase(get()) }
 
-    factory { MainListPresenter(get(), get()) }
+    factory { ListPresenter(get(), get()) }
     factory { ViewNewsPresenter(get()) }
+    factory { (supportFragmentManager: FragmentManager) -> MainPresenter(supportFragmentManager) }
 }

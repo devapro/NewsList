@@ -9,11 +9,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_news_list.*
 import pro.devapp.newslist.R
 import pro.devapp.newslist.logic.entity.EntityNews
-import pro.devapp.newslist.ui.MainActivity
-import pro.devapp.newslist.ui.fragments.ViewNewsFragment
 import pro.devapp.newslist.util.OnItemClickListener
 import pro.devapp.newslist.util.addOnItemClickListener
 

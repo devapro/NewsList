@@ -9,7 +9,7 @@ import pro.devapp.newslist.logic.livedata.NewsBoundaryCallback
 import pro.devapp.newslist.logic.livedata.NewsDataSourceFactory
 import pro.devapp.newslist.storage.database.DataRepository
 
-class MainListPresenter(dataRepository: DataRepository, private val dataController: DataController) {
+class ListPresenter(dataRepository: DataRepository, private val dataController: DataController) {
 
     private val config = PagedList.Config.Builder()
         .setEnablePlaceholders(false)

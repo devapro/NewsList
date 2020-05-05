@@ -1,4 +1,4 @@
-package pro.devapp.newslist.ui.fragments
+package pro.devapp.newslist.ui.screens.newsdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_news_view.*
 import org.koin.android.ext.android.inject
 import pro.devapp.newslist.R
-import pro.devapp.newslist.logic.presenters.ViewNewsPresenter
+import pro.devapp.newslist.ui.main.NavigationFragment
 
 class ViewNewsFragment : NavigationFragment() {
 
@@ -18,29 +18,34 @@ class ViewNewsFragment : NavigationFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_news_view, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        displayHome()
+        webView.settings.javaScriptEnabled = true
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             presenter.setNewsId(it.getLong("newsId"))
         }
 
-        displayHome()
-        webView.settings.javaScriptEnabled = true
+
+
         presenter.news.observe(viewLifecycleOwner, Observer {
-            if(it != null){
-                webView.loadUrl(it.url)
-                setTitle(it.title ?: "")
-            }
+            val news = it ?: return@Observer
+            webView.loadUrl(news.url)
+            setTitle(news.title ?: "")
         })
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(newsId: Long) = ViewNewsFragment().apply {
+        fun newInstance(newsId: Long) = ViewNewsFragment()
+            .apply {
             arguments = Bundle().apply {
                 putLong("newsId", newsId)
             }

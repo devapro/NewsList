@@ -1,17 +1,16 @@
-package pro.devapp.newslist.logic.presenters
+package pro.devapp.newslist.ui.screens.newsdetail
 
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pro.devapp.newslist.logic.entity.EntityNews
-import pro.devapp.newslist.logic.livedata.NewsMapper
+import pro.devapp.newslist.logic.mapToModel
+import pro.devapp.newslist.logic.models.ModelItemNews
 import pro.devapp.newslist.storage.database.DataRepository
 
 class ViewNewsPresenter(private val dataRepository: DataRepository) {
-    val news = MutableLiveData<EntityNews>()
-    private val mapper = NewsMapper()
+    val news = MutableLiveData<ModelItemNews>()
 
     fun setNewsId(newsId: Long){
         GlobalScope.launch {
@@ -23,7 +22,7 @@ class ViewNewsPresenter(private val dataRepository: DataRepository) {
         withContext(Dispatchers.IO){
             val entityDb = dataRepository.findNewsById(newsId)
             if (entityDb != null){
-                news.postValue(mapper.map(entityDb))
+                news.postValue(entityDb.mapToModel())
             }
             else {
                 news.postValue(null)

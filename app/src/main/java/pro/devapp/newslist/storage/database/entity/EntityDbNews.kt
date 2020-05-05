@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "news")
-class EntityDbNews (
+data class EntityDbNews (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     val id: Long,

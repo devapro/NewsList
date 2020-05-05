@@ -1,4 +1,4 @@
-package pro.devapp.newslist.ui.fragments
+package pro.devapp.newslist.ui.screens.newslist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +10,11 @@ import kotlinx.android.synthetic.main.fragment_news_list.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import pro.devapp.newslist.R
-import pro.devapp.newslist.logic.entity.EntityNews
-import pro.devapp.newslist.logic.presenters.ListPresenter
-import pro.devapp.newslist.logic.presenters.MainPresenter
-import pro.devapp.newslist.ui.customviews.NewsList
+import pro.devapp.newslist.logic.models.ModelItemNews
+import pro.devapp.newslist.ui.main.MainPresenter
+import pro.devapp.newslist.ui.screens.newslist.customviews.NewsList
+import pro.devapp.newslist.ui.main.NavigationFragment
+import pro.devapp.newslist.ui.screens.newsdetail.ViewNewsFragment
 
 class ListNewsFragment : NavigationFragment() {
 
@@ -41,9 +42,13 @@ class ListNewsFragment : NavigationFragment() {
         })
 
         newsList.listener = object : NewsList.ActionListener{
-            override fun onItemClick(item: EntityNews?) {
+            override fun onItemClick(item: ModelItemNews?) {
                 item?.let {
-                    mainPresenter.addFragment(ViewNewsFragment.newInstance(it.id))
+                    mainPresenter.addFragment(
+                        ViewNewsFragment.newInstance(
+                            it.id
+                        )
+                    )
                 }
             }
 
@@ -55,6 +60,7 @@ class ListNewsFragment : NavigationFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = ListNewsFragment()
+        fun newInstance() =
+            ListNewsFragment()
     }
 }

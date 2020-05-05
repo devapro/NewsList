@@ -1,11 +1,11 @@
-package pro.devapp.newslist.logic.presenters
+package pro.devapp.newslist.ui.main
 
 import android.os.Handler
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import pro.devapp.newslist.R
-import pro.devapp.newslist.ui.fragments.ListNewsFragment
-import pro.devapp.newslist.ui.fragments.SplashFragment
+import pro.devapp.newslist.ui.screens.newslist.ListNewsFragment
+import pro.devapp.newslist.ui.screens.splash.SplashFragment
 
 class MainPresenter(private val supportFragmentManager: FragmentManager) {
     fun openInitFragment(){

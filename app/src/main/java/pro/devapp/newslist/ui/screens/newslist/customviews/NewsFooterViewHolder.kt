@@ -1,12 +1,9 @@
-package pro.devapp.newslist.ui.customviews
+package pro.devapp.newslist.ui.screens.newslist.customviews
 
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.RecyclerView
 import pro.devapp.newslist.R
 
 

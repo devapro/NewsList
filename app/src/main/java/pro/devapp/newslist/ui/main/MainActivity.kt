@@ -1,11 +1,10 @@
-package pro.devapp.newslist.ui
+package pro.devapp.newslist.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import pro.devapp.newslist.R
-import pro.devapp.newslist.logic.presenters.MainPresenter
 
 class MainActivity : AppCompatActivity() {
 

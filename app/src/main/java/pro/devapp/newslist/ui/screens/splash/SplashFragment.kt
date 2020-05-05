@@ -1,4 +1,4 @@
-package pro.devapp.newslist.ui.fragments
+package pro.devapp.newslist.ui.screens.splash
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

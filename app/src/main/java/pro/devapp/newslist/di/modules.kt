@@ -11,9 +11,9 @@ import org.koin.dsl.module
 import pro.devapp.newslist.application.DATA_BASE_NAME
 import pro.devapp.newslist.application.TIMEOUT
 import pro.devapp.newslist.logic.DataController
-import pro.devapp.newslist.logic.presenters.ListPresenter
-import pro.devapp.newslist.logic.presenters.MainPresenter
-import pro.devapp.newslist.logic.presenters.ViewNewsPresenter
+import pro.devapp.newslist.ui.screens.newslist.ListPresenter
+import pro.devapp.newslist.ui.main.MainPresenter
+import pro.devapp.newslist.ui.screens.newsdetail.ViewNewsPresenter
 import pro.devapp.newslist.storage.database.AppDataBase
 import pro.devapp.newslist.storage.database.DataRepository
 import pro.devapp.newslist.storage.database.RoomDataRepository
@@ -48,7 +48,16 @@ val appModule = module {
     single { createOkHttpClient() }
     single { createDataBase(get()) }
 
-    factory { ListPresenter(get(), get()) }
+    factory {
+        ListPresenter(
+            get(),
+            get()
+        )
+    }
     factory { ViewNewsPresenter(get()) }
-    factory { (supportFragmentManager: FragmentManager) -> MainPresenter(supportFragmentManager) }
+    factory { (supportFragmentManager: FragmentManager) ->
+        MainPresenter(
+            supportFragmentManager
+        )
+    }
 }

@@ -6,8 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pro.devapp.newslist.storage.database.ApiToDbEntityMapper
 import pro.devapp.newslist.storage.database.DataRepository
+import pro.devapp.newslist.storage.mapToDbEntity
 import pro.devapp.newslist.storage.serverapi.Api
 import pro.devapp.newslist.storage.serverapi.entity.EntityApiNews
 import java.lang.Exception
@@ -17,7 +17,6 @@ class DataController(private val api: Api, private val dataRepository: DataRepos
 
     private val TAG = DataController::class.java.simpleName
 
-    private val dbEntityMapper = ApiToDbEntityMapper()
     val errorMessage = MutableLiveData<String>()
 
     fun loadSinceData(time: Long){
@@ -59,12 +58,12 @@ class DataController(private val api: Api, private val dataRepository: DataRepos
     }
 
     private fun updateItem(id: Long, entityApiNews: EntityApiNews){
-        val entity = dbEntityMapper.map(id, entityApiNews)
+        val entity = entityApiNews.mapToDbEntity(id)
         dataRepository.saveNews(entity)
     }
 
     private fun saveItem(entityApiNews: EntityApiNews){
-        val entity = dbEntityMapper.map(entityApiNews)
+        val entity = entityApiNews.mapToDbEntity(0)
         dataRepository.saveNews(entity)
     }
 }

@@ -1,7 +1,7 @@
 package pro.devapp.newslist.storage.livedata
 
 import androidx.paging.PagedList
-import pro.devapp.newslist.logic.DataController
+import pro.devapp.newslist.logic.controllers.DataController
 import pro.devapp.newslist.logic.models.ModelItemNews
 
 class NewsBoundaryCallback(private val dataController: DataController): PagedList.BoundaryCallback<ModelItemNews>()  {

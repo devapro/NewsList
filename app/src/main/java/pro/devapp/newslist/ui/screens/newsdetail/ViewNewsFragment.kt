@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_news_view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import pro.devapp.newslist.R
 import pro.devapp.newslist.ui.main.NavigationFragment
+import pro.devapp.newslist.util.observe
 
 class ViewNewsFragment : NavigationFragment() {
 
@@ -30,16 +32,16 @@ class ViewNewsFragment : NavigationFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            presenter.setNewsId(it.getLong("newsId"))
+            GlobalScope.launch {
+                presenter.loadNews(it.getLong("newsId"))
+            }
         }
 
-
-
-        presenter.news.observe(viewLifecycleOwner, Observer {
-            val news = it ?: return@Observer
+        presenter.news.observe(viewLifecycleOwner){
+            val news = it ?: return@observe
             webView.loadUrl(news.url)
             setTitle(news.title ?: "")
-        })
+        }
     }
 
     companion object {

@@ -5,10 +5,11 @@ import android.os.Bundle
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import pro.devapp.newslist.R
+import pro.devapp.newslist.logic.controllers.NavigationController
 
 class MainActivity : AppCompatActivity() {
 
-    private val presenter : MainPresenter by inject{ parametersOf(supportFragmentManager) }
+    private val presenter : NavigationController by inject{ parametersOf(supportFragmentManager) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

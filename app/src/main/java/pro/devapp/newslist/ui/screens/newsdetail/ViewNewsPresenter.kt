@@ -12,21 +12,10 @@ import pro.devapp.newslist.storage.database.DataRepository
 class ViewNewsPresenter(private val dataRepository: DataRepository) {
     val news = MutableLiveData<ModelItemNews>()
 
-    fun setNewsId(newsId: Long){
-        GlobalScope.launch {
-            loadNews(newsId)
-        }
-    }
-
-    private suspend fun loadNews(newsId: Long){
+    suspend fun loadNews(newsId: Long){
         withContext(Dispatchers.IO){
             val entityDb = dataRepository.findNewsById(newsId)
-            if (entityDb != null){
-                news.postValue(entityDb.mapToModel())
-            }
-            else {
-                news.postValue(null)
-            }
+            news.postValue(entityDb?.mapToModel())
         }
     }
 }

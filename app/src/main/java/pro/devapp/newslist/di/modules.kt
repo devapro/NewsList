@@ -10,9 +10,9 @@ import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import pro.devapp.newslist.application.DATA_BASE_NAME
 import pro.devapp.newslist.application.TIMEOUT
-import pro.devapp.newslist.logic.DataController
+import pro.devapp.newslist.logic.controllers.DataController
 import pro.devapp.newslist.ui.screens.newslist.ListPresenter
-import pro.devapp.newslist.ui.main.MainPresenter
+import pro.devapp.newslist.logic.controllers.NavigationController
 import pro.devapp.newslist.ui.screens.newsdetail.ViewNewsPresenter
 import pro.devapp.newslist.storage.database.AppDataBase
 import pro.devapp.newslist.storage.database.DataRepository
@@ -41,7 +41,6 @@ fun createGson(): Gson {
 }
 
 val appModule = module {
-
     single<Api> { ServerApi(get(), createGson()) }
     single<DataRepository> { RoomDataRepository(get()) }
     single { DataController(get(), get()) }
@@ -56,7 +55,7 @@ val appModule = module {
     }
     factory { ViewNewsPresenter(get()) }
     factory { (supportFragmentManager: FragmentManager) ->
-        MainPresenter(
+        NavigationController(
             supportFragmentManager
         )
     }

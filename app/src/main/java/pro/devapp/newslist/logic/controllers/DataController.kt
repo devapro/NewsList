@@ -1,4 +1,4 @@
-package pro.devapp.newslist.logic
+package pro.devapp.newslist.logic.controllers
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

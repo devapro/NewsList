@@ -3,7 +3,7 @@ package pro.devapp.newslist.ui.screens.newslist
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import pro.devapp.newslist.logic.DataController
+import pro.devapp.newslist.logic.controllers.DataController
 import pro.devapp.newslist.logic.models.ModelItemNews
 import pro.devapp.newslist.storage.livedata.NewsBoundaryCallback
 import pro.devapp.newslist.storage.livedata.NewsDataSourceFactory

@@ -5,16 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_news_view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import pro.devapp.newslist.R
 import pro.devapp.newslist.ui.main.NavigationFragment
 import pro.devapp.newslist.util.observe
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 
-class ViewNewsFragment : NavigationFragment() {
+class ViewNewsFragment : NavigationFragment(), CoroutineScope {
 
     private val presenter : ViewNewsPresenter by inject()
+    private val job = SupervisorJob()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +37,7 @@ class ViewNewsFragment : NavigationFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            GlobalScope.launch {
+            launch {
                 presenter.loadNews(it.getLong("newsId"))
             }
         }
@@ -42,6 +47,11 @@ class ViewNewsFragment : NavigationFragment() {
             webView.loadUrl(news.url)
             setTitle(news.title ?: "")
         }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        coroutineContext.cancelChildren()
     }
 
     companion object {

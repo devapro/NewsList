@@ -1,4 +1,4 @@
-package pro.devapp.newslist.ui.customviews
+package pro.devapp.newslist.ui.screens.newslist.customviews
 
 import android.view.View
 import android.widget.ImageView

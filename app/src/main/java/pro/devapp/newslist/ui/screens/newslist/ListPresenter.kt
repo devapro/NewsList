@@ -1,12 +1,12 @@
-package pro.devapp.newslist.logic.presenters
+package pro.devapp.newslist.ui.screens.newslist
 
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import pro.devapp.newslist.logic.DataController
-import pro.devapp.newslist.logic.entity.EntityNews
-import pro.devapp.newslist.logic.livedata.NewsBoundaryCallback
-import pro.devapp.newslist.logic.livedata.NewsDataSourceFactory
+import pro.devapp.newslist.logic.controllers.DataController
+import pro.devapp.newslist.logic.models.ModelItemNews
+import pro.devapp.newslist.storage.livedata.NewsBoundaryCallback
+import pro.devapp.newslist.storage.livedata.NewsDataSourceFactory
 import pro.devapp.newslist.storage.database.DataRepository
 
 class ListPresenter(dataRepository: DataRepository, private val dataController: DataController) {
@@ -21,7 +21,7 @@ class ListPresenter(dataRepository: DataRepository, private val dataController: 
     private val factory =
        NewsDataSourceFactory(dataRepository)
 
-    val pagedList : LiveData<PagedList<EntityNews>> = LivePagedListBuilder<Long, EntityNews>(factory, config)
+    val pagedList : LiveData<PagedList<ModelItemNews>> = LivePagedListBuilder<Long, ModelItemNews>(factory, config)
         .setBoundaryCallback(NewsBoundaryCallback(dataController))
         .setInitialLoadKey(null)
         .build()

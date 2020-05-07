@@ -1,4 +1,4 @@
-package pro.devapp.newslist.ui.fragments
+package pro.devapp.newslist.ui.main
 
 import android.os.Bundle
 import android.view.MenuItem

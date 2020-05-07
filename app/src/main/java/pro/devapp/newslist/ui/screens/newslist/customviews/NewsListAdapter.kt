@@ -1,15 +1,13 @@
-package pro.devapp.newslist.ui.customviews
+package pro.devapp.newslist.ui.screens.newslist.customviews
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import com.bumptech.glide.Glide
-import pro.devapp.newslist.R
-import pro.devapp.newslist.logic.entity.EntityNews
+import pro.devapp.newslist.logic.models.ModelItemNews
 import java.text.SimpleDateFormat
-import java.util.*
 
-class NewsListAdapter(private val listener: ActionListener) : PagedListAdapter<EntityNews, NewsViewHolder>(POST_COMPARATOR) {
+class NewsListAdapter(private val listener: ActionListener) : PagedListAdapter<ModelItemNews, NewsViewHolder>(POST_COMPARATOR) {
     private val formatter: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy hh:mm")
     private var errorMessage: String? = null
 
@@ -80,7 +78,7 @@ class NewsListAdapter(private val listener: ActionListener) : PagedListAdapter<E
         return if(position == itemCount -1 ) 1 else 0
     }
 
-    fun getItemByPosition(position: Int): EntityNews? {
+    fun getItemByPosition(position: Int): ModelItemNews? {
         return super.getItem(position)
     }
 

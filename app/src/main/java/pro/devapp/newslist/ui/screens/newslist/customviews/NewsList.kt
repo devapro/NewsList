@@ -1,4 +1,4 @@
-package pro.devapp.newslist.ui.customviews
+package pro.devapp.newslist.ui.screens.newslist.customviews
 
 import android.content.Context
 import android.util.AttributeSet
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import pro.devapp.newslist.R
-import pro.devapp.newslist.logic.entity.EntityNews
+import pro.devapp.newslist.logic.models.ModelItemNews
 import pro.devapp.newslist.util.OnItemClickListener
 import pro.devapp.newslist.util.addOnItemClickListener
 
@@ -40,11 +40,11 @@ class NewsList(contetxt: Context, attrs: AttributeSet?, defStyle: Int) : Recycle
         })
     }
 
-    fun submitList(list: PagedList<EntityNews>){
+    fun submitList(list: PagedList<ModelItemNews>){
         (adapter as NewsListAdapter).submitList(list)
     }
 
-    fun getItemByPosition(position: Int): EntityNews?{
+    fun getItemByPosition(position: Int): ModelItemNews?{
         return (adapter as NewsListAdapter).getItemByPosition(position)
     }
 
@@ -53,7 +53,7 @@ class NewsList(contetxt: Context, attrs: AttributeSet?, defStyle: Int) : Recycle
     }
 
     interface ActionListener{
-        fun onItemClick(item: EntityNews?)
+        fun onItemClick(item: ModelItemNews?)
         fun onTryAgainClick()
     }
 }
